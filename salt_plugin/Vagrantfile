@@ -1,0 +1,18 @@
+#!/usr/bin/ruby
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vim.box = "centos7"
+    config.vim.synced_folder "srv/", "/srv/"
+    config.vim.prosion :salt do |salt|
+        salt.minion_config = "srv/minion"
+        salt.run_highstate = true
+    end
+end
+
+# Sample of port forwading
+# Vagrant::Config.run do |config|
+#     config.vm.forward_port 3000, 3000
+# end
